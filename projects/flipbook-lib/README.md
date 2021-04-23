@@ -5,7 +5,7 @@
 
 ## Demo
 <p align="center">
-<img src ="https://github.com/labsforge/flipbook-ng/tree/master/projects/flipbook-lib/flipbook_demo.gif" /></p>
+<img src ="https://github.com/labsforge/flipbook-ng/blob/master/projects/flipbook-lib/flipbook_demo.gif" /></p>
 
 ## Install it with npm
 npm install @labsforge/flipbook --save
