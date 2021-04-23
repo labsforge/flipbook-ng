@@ -2,6 +2,147 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {
-  }
+  "projects": {    
+    "flipbook-app": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/flipbook-app",
+      "sourceRoot": "projects/flipbook-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/flipbook-app",
+            "index": "projects/flipbook-app/src/index.html",
+            "main": "projects/flipbook-app/src/main.ts",
+            "polyfills": "projects/flipbook-app/src/polyfills.ts",
+            "tsConfig": "projects/flipbook-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/flipbook-app/src/favicon.ico",
+              "projects/flipbook-app/src/assets"
+            ],
+            "styles": [
+              "projects/flipbook-app/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/flipbook-app/src/environments/environment.ts",
+                  "with": "projects/flipbook-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "flipbook-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "flipbook-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "flipbook-app:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/flipbook-app/tsconfig.app.json",
+              "projects/flipbook-app/tsconfig.spec.json",
+              "projects/flipbook-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/flipbook-app/e2e/protractor.conf.js",
+            "devServerTarget": "flipbook-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "flipbook-app:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "flipbook-lib": {
+      "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/flipbook-lib",
+      "sourceRoot": "projects/flipbook-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/flipbook-lib/tsconfig.lib.json",
+            "project": "projects/flipbook-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/flipbook-lib/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/flipbook/tsconfig.lib.json",
+              "projects/flipbook/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "flipbook-app"
 }

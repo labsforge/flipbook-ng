@@ -1,0 +1,17 @@
+:host {
+  position: absolute;
+}
+
+.page {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background-color: #fff;
+  background-size: cover;
+}
+
+.back {
+  transform: scaleX(-1);
+}

@@ -1,0 +1,12 @@
+<div class="page"
+  [style.width.px]="width"
+  [style.height.px]="height"
+  [style.z-index]="rotation > -90 ? 1 : 0"
+  [style.background-image]="page.front ? 'url(' + page.front + ')' : null">
+</div>
+<div class="page back"
+  [style.width.px]="width"
+  [style.height.px]="height"
+  [style.z-index]="rotation < -90 ? 1 : 0"
+  [style.background-image]="page.back ? 'url(' + page.back+ ')' : null">
+</div>

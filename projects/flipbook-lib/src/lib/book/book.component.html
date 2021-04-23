@@ -1,0 +1,10 @@
+<flipbook-page *ngFor="let page of reversedPages"
+               [page]="page"
+               [width]="model.width * model.zoom / 2"
+               [height]="model.height * model.zoom"
+               [rotation]="page.rotation"
+               (mousedown)="onPageDown($event, page)"
+               (pan)="onPagePan($event, page)"
+               (panend)="onPagePanEnd($event, page)"
+               (swipe)="onSwipe($event, page)">
+</flipbook-page>
