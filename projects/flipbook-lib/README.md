@@ -5,7 +5,7 @@
 
 ## Demo
 <p align="center">
-<img src ="https://github.com/labsforge/flipbook-ng/blob/master/Flip.gif" /></p>
+<img src ="https://github.com/labsforge/flipbook-ng/blob/master/flipbook_demo.gif" /></p>
 
 ## Install it with npm
 npm install @labsforge/flipbook --save
@@ -34,6 +34,7 @@ npm install @labsforge/flipbook --save
 
 ```typescript
 import { Component } from '@angular/core';
+import { Book } from '@labsforge/flipbook';
 
 @Component({ /* ... */ })
 export class MyComponent {
