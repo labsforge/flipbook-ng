@@ -4,14 +4,17 @@
 
 .page {
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   box-sizing: border-box;
-  background-color: #fff;
-  background-size: cover;
+  background-position-y: 50%;
+  background-position-x: 0%;
+  background-repeat: no-repeat;
 }
 
 .back {
   transform: scaleX(-1);
+  background-position-x: 100%;
+}
+
+.cover {
+  background-size: cover;
 }

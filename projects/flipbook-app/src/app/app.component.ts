@@ -20,14 +20,16 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.flipService.book = {
-      width: 1190,
-      height: 800,
+      width: 1210,
+      height: 820,
       zoom: 1,
+      cover: {
+        front: 'assets/demo/02-right.png',
+        back: 'assets/demo/02-left.png',
+      },
       pages: [
         'assets/demo/01-left.png',
         'assets/demo/01-right.png',
-        'assets/demo/02-left.png',
-        'assets/demo/02-right.png',
         'assets/demo/03-left.png',
         'assets/demo/03-right.png',
         'assets/demo/04-left.png',
@@ -36,8 +38,10 @@ export class AppComponent implements OnInit {
         'assets/demo/05-right.png',
         'assets/demo/06-left.png',
         'assets/demo/06-right.png',
-      ]
-    }
+      ],
+      pageWidth: 595,
+      pageHeight: 800
+    } as Book;
   }
 
   @HostListener('window:resize')
