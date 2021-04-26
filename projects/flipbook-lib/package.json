@@ -1,15 +1,19 @@
 {
   "name": "@labsforge/flipbook",
   "description": "A simple angular flipbook component written in typescript",
-  "keywords": ["flipbook", "angular", "pageflip"],
-  "version": "0.0.1",
+  "keywords": [
+    "flipbook",
+    "angular",
+    "pageflip"
+  ],
+  "version": "0.0.2",
   "peerDependencies": {
     "@angular/common": "^11.0.9",
-    "@angular/core": "^11.0.9",
-    "gsap": "^2.0.1"
+    "@angular/core": "^11.0.9"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "gsap": "^2.0.1"
   },
   "author": {
     "name": "Labsforge Software Consulting, lda",
