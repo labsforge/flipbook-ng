@@ -9,6 +9,8 @@ import {
 import { Book, Page } from '../interfaces';
 import { FlipbookService } from '../flipbook.service';
 
+const DEFAULT_BACKCOVER_COLOR = '#fff';
+
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'flipbook',
@@ -21,16 +23,24 @@ export class BookComponent implements OnInit, OnDestroy {
   @Input() model: Book;
   @Input() startAt: number;
 
-  @HostBinding('style.width.px') get hostWidth() { this.cdr.detectChanges(); return this.model.width * this.model.zoom; }
-  @HostBinding('style.height.px') get hostHeight() { return this.model.height * this.model.zoom; }
-  @HostBinding('style.perspective.px') get hostPerspective() { return this.model.width * this.model.zoom * 2; }
+  @HostBinding('style.width.px')
+  get hostWidth() {
+    this.cdr.detectChanges();
+    return this.model.width * this.model.zoom;
+  }
+
+  @HostBinding('style.height.px')
+  get hostHeight() {
+    return this.model.height * this.model.zoom;
+  }
+
+  @HostBinding('style.perspective.px')
+  get hostPerspective() {
+    return this.model.width * this.model.zoom * 2;
+  }
 
   currentIndex = 0;
   pages: Page[];
-
-  get reversedPages() {
-    return this.pages ? this.pages.slice().reverse() : [];
-  }
 
   private destroyed = new Subject<void>();
   private flipTimeLine: TimelineLite;
@@ -72,17 +82,67 @@ export class BookComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.model && this.model.pages.length > 1) {
-      // TODO: Implement startPageType / endPageType
-      this.pages = [];
-      this.pages.push({ index: 0, lock: true, front: null, back: this.model.pages[0], rotation: -180 });
+    // TODO: Implement startPageType / endPageType
+    this.pages = [];
 
-      for (let i = 1; i < this.model.pages.length - 2; i += 2) {
-        this.pages.push({ index: this.pages.length, front: this.model.pages[i], back: this.model.pages[i + 1], rotation: 0 });
+    const pages = this.model.pages.slice();
+    const hasCover = this.model && this.model.cover !== undefined;
+    const pageWidth = this.model.pageWidth || this.model.width / 2;
+    const pageHeight = this.model.pageHeight || this.model.height;
+
+    if (this.model && pages.length > 1) {
+      this.pages.push({
+        index: this.pages.length,
+        lock: !hasCover,
+        front: hasCover ? {
+          imageUrl: this.model.cover.front,
+          isCover: true,
+          width: this.model.width / 2,
+          height: this.model.height
+        } : undefined,
+        back: {
+          imageUrl: pages.shift(),
+          backgroundColor: hasCover ? DEFAULT_BACKCOVER_COLOR : undefined,
+          width: pageWidth,
+          height: pageHeight,
+        },
+        rotation: hasCover ? 0 : -180
+      });
+      
+      while (pages.length > 1) {
+        this.pages.push({
+          index: this.pages.length,
+          front: {
+            imageUrl: pages.shift(),
+            width: pageWidth,
+            height: pageHeight,
+          },
+          back: {
+            imageUrl: pages.shift(),
+            width: pageWidth,
+            height: pageHeight,
+          },
+          rotation: 0
+        });
       }
 
-      const lastPage = this.model.pages[this.model.pages.length - 1];
-      this.pages.push({ index: this.pages.length, lock: true, front: lastPage, back: null, rotation: 0 });
+      this.pages.push({
+        index: this.pages.length,
+        lock: !hasCover,
+        front: {
+          imageUrl: pages.shift(),
+          backgroundColor: hasCover ? DEFAULT_BACKCOVER_COLOR : undefined,
+          width: pageWidth,
+          height: pageHeight,
+        },
+        back: this.model.cover ? {
+          imageUrl: this.model.cover.back,
+          isCover: true,
+          width: this.model.width / 2,
+          height: this.model.height
+        } : undefined,
+        rotation: 0
+      });
     }
 
     if (this.startAt !== undefined) {

@@ -1,12 +1,18 @@
 <div class="page"
-  [style.width.px]="width"
-  [style.height.px]="height"
+  [class.cover]="page.front?.isCover"
+  [style.width.px]="width * zoom"
+  [style.height.px]="height * zoom"
   [style.z-index]="rotation > -90 ? 1 : 0"
-  [style.background-image]="page.front ? 'url(' + page.front + ')' : null">
+  [style.background-image]="page.front ? 'url(' + page.front.imageUrl + ')' : null"
+  [style.background-size]="page.front?.width * zoom + 'px ' + page.front?.height * zoom + 'px'"
+  [style.background-color]="page.front?.backgroundColor">
 </div>
 <div class="page back"
-  [style.width.px]="width"
-  [style.height.px]="height"
+  [class.cover]="page.back?.isCover"
+  [style.width.px]="width * zoom"
+  [style.height.px]="height * zoom"
   [style.z-index]="rotation < -90 ? 1 : 0"
-  [style.background-image]="page.back ? 'url(' + page.back+ ')' : null">
+  [style.background-image]="page.back ? 'url(' + page.back.imageUrl + ')' : null"
+  [style.background-size]="page.back?.width * zoom + 'px ' + page.back?.height * zoom + 'px'"
+  [style.background-color]="page.back?.backgroundColor">
 </div>

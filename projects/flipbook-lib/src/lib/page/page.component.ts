@@ -12,9 +12,17 @@ export class PageComponent {
   @Input() width: number;
   @Input() height: number;
   @Input() rotation: number;
+  @Input() zoom: number;
 
-  @HostBinding('style.left') get hostLeft() { return this.width + 'px'; }
-  @HostBinding('style.transform') get hostRotation() { return `rotateY(${this.rotation}deg)`; }
+  @HostBinding('style.left.px')
+  get hostLeft() {
+    return this.width * this.zoom;
+  }
+
+  @HostBinding('style.transform')
+  get hostRotation() {
+    return `rotateY(${this.page.rotation}deg)`;
+  }
 
   constructor() { }
 

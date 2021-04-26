@@ -3,6 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { BookComponent } from './book/book.component';
 import { PageComponent } from './page/page.component';
 import { FlipbookService } from './flipbook.service';
+import { ReversePipe } from './pipes/reverse.pipe';
 
 @NgModule({
   imports: [
@@ -11,13 +12,14 @@ import { FlipbookService } from './flipbook.service';
   declarations: [
     BookComponent,
     PageComponent,
+    ReversePipe,
   ],
   exports: [
     BookComponent,
   ]
 })
 export class FlipBookModule {
-  static forRoot(): ModuleWithProviders<FlipBookModule> {
+  static forChild(): ModuleWithProviders<FlipBookModule> {
     return {
       ngModule: FlipBookModule,
       providers: [

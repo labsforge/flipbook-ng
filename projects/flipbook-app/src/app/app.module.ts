@@ -12,7 +12,7 @@ import { FlipBookModule } from '@labsforge/pageflip';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FlipBookModule.forRoot(),
+    FlipBookModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
