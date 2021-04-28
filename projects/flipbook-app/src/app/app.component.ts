@@ -1,6 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
-import { Book, FlipbookService } from '@labsforge/pageflip';
-import { PageType } from 'projects/flipbook-lib/src/public-api';
+import { Book, FlipbookService, PageType } from '@labsforge/pageflip';
 
 @Component({
   selector: 'app-root',
