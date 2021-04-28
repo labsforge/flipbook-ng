@@ -19,7 +19,7 @@ npm install @labsforge/flipbook --save
   @NgModule({
     imports: [
       // other imports 
-      FlipBookModule.forRoot()
+      FlipBookModule
     ],
     // ...
   })
@@ -39,17 +39,29 @@ import { Book } from '@labsforge/flipbook';
 @Component({ /* ... */ })
 export class MyComponent {
   book: Book = {
-    width: 1000,
+    width: 1190, // When cover is set, should match the cover size
     height: 800,
     zoom: 1,
+    cover: { // optional
+      front: 'assets/demo/02-right.png',
+      back: 'assets/demo/02-left.png',
+    },
     pages: [
-      'assets/demo/01-left.png',
-      'assets/demo/01-right.png',
-      'assets/demo/02-left.png',
-      'assets/demo/02-right.png',
+      'assets/demo/01-left.png', // first single-page when startPageType: PageType.Single
       'assets/demo/03-left.png',
       'assets/demo/03-right.png',
-    ]
+      'assets/demo/04-left.png',
+      'assets/demo/04-right.png',
+      'assets/demo/05-left.png',
+      'assets/demo/05-right.png',
+      'assets/demo/06-left.png',
+      'assets/demo/06-right.png',
+      'assets/demo/01-right.png', // last single-page when endPageType: PageType.Single
+    ],
+    pageWidth: 595, // When smaller than cover
+    pageHeight: 800,
+    startPageType: PageType.Single, // optional
+    endPageType: PageType.Single // optional
   }
 }
 ```

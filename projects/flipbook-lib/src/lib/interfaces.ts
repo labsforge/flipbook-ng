@@ -3,6 +3,11 @@ export interface Cover {
   back: string;
 }
 
+export enum PageType {
+  Single,
+  Double
+}
+
 export interface Book {
   width: number;
   height: number;
@@ -11,8 +16,8 @@ export interface Book {
   pages: string[];
   pageWidth?: number;
   pageHeight?: number;
-  startPageType?: number;
-  endPageType?: number;
+  startPageType?: PageType;
+  endPageType?: PageType;
 }
 
 export interface Page {
