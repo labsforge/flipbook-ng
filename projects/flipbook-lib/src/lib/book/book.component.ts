@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnDestroy, OnInit
 } from '@angular/core';
 
-import { Book, Page } from '../interfaces';
+import { Book, Page, PageType } from '../interfaces';
 import { FlipbookService } from '../flipbook.service';
 
 const DEFAULT_BACKCOVER_COLOR = '#fff';
@@ -91,24 +91,45 @@ export class BookComponent implements OnInit, OnDestroy {
     const pageHeight = this.model.pageHeight || this.model.height;
 
     if (this.model && pages.length > 1) {
-      this.pages.push({
-        index: this.pages.length,
-        lock: !hasCover,
-        front: hasCover ? {
-          imageUrl: this.model.cover.front,
-          isCover: true,
-          width: this.model.width / 2,
-          height: this.model.height
-        } : undefined,
-        back: {
-          imageUrl: pages.shift(),
-          backgroundColor: hasCover ? DEFAULT_BACKCOVER_COLOR : undefined,
-          width: pageWidth,
-          height: pageHeight,
-        },
-        rotation: hasCover ? 0 : -180
-      });
-      
+      if (!hasCover && this.model.startPageType === PageType.Single) {
+        // add first white page block
+        this.pages.push({
+          index: this.pages.length,
+          lock: true,
+          front: {
+            imageUrl: '',
+            width: pageWidth,
+            height: pageHeight,
+            backgroundColor: DEFAULT_BACKCOVER_COLOR
+          },
+          back: {
+            imageUrl: '',
+            width: pageWidth,
+            height: pageHeight,
+            backgroundColor: DEFAULT_BACKCOVER_COLOR
+          },
+          rotation: -180
+        });
+      } else {
+        this.pages.push({
+          index: this.pages.length,
+          lock: !hasCover,
+          front: hasCover ? {
+            imageUrl: this.model.cover.front,
+            isCover: true,
+            width: this.model.width / 2,
+            height: this.model.height
+          } : undefined,
+          back: {
+            imageUrl: this.model.startPageType === PageType.Single ? '' : pages.shift(),
+            backgroundColor: hasCover ? DEFAULT_BACKCOVER_COLOR : '',
+            width: pageWidth,
+            height: pageHeight,
+          },
+          rotation: hasCover ? 0 : -180
+        });
+      }
+
       while (pages.length > 1) {
         this.pages.push({
           index: this.pages.length,
@@ -126,23 +147,44 @@ export class BookComponent implements OnInit, OnDestroy {
         });
       }
 
-      this.pages.push({
-        index: this.pages.length,
-        lock: !hasCover,
-        front: {
-          imageUrl: pages.shift(),
-          backgroundColor: hasCover ? DEFAULT_BACKCOVER_COLOR : undefined,
-          width: pageWidth,
-          height: pageHeight,
-        },
-        back: this.model.cover ? {
-          imageUrl: this.model.cover.back,
-          isCover: true,
-          width: this.model.width / 2,
-          height: this.model.height
-        } : undefined,
-        rotation: 0
-      });
+      if (!hasCover && this.model.endPageType === PageType.Single) {
+        // add last white page block
+        this.pages.push({
+          index: this.pages.length,
+          lock: true,
+          front: {
+            imageUrl: '',
+            width: pageWidth,
+            height: pageHeight,
+            backgroundColor: DEFAULT_BACKCOVER_COLOR
+          },
+          back: {
+            imageUrl: '',
+            width: pageWidth,
+            height: pageHeight,
+            backgroundColor: DEFAULT_BACKCOVER_COLOR
+          },
+          rotation: 0
+        });
+      } else {
+        this.pages.push({
+          index: this.pages.length,
+          lock: !hasCover,
+          front: {
+            imageUrl: this.model.endPageType === PageType.Single ? '' : pages.shift(),
+            backgroundColor: hasCover ? DEFAULT_BACKCOVER_COLOR : '',
+            width: pageWidth,
+            height: pageHeight,
+          },
+          back: this.model.cover ? {
+            imageUrl: this.model.cover.back,
+            isCover: true,
+            width: this.model.width / 2,
+            height: this.model.height
+          } : undefined,
+          rotation: 0
+        });
+      }
     }
 
     if (this.startAt !== undefined) {
