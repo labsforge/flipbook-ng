@@ -9,7 +9,7 @@ import {
 import { Book, Page, PageType } from '../interfaces';
 import { FlipbookService } from '../flipbook.service';
 
-const DEFAULT_BACKCOVER_COLOR = '#fff';
+const DEFAULT_BACKGROUND_COLOR = '#fff';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -90,6 +90,10 @@ export class BookComponent implements OnInit, OnDestroy {
     const pageWidth = this.model.pageWidth || this.model.width / 2;
     const pageHeight = this.model.pageHeight || this.model.height;
 
+    const coverBackgroundColor = hasCover && this.model.cover.backgroundColor !== undefined
+      ? this.model.cover.backgroundColor !== undefined ? this.model.cover.backgroundColor : DEFAULT_BACKGROUND_COLOR
+      : '';
+
     if (this.model && pages.length > 1) {
       if (!hasCover && this.model.startPageType === PageType.Single) {
         // add first white page block
@@ -100,13 +104,13 @@ export class BookComponent implements OnInit, OnDestroy {
             imageUrl: '',
             width: pageWidth,
             height: pageHeight,
-            backgroundColor: DEFAULT_BACKCOVER_COLOR
+            backgroundColor: DEFAULT_BACKGROUND_COLOR
           },
           back: {
             imageUrl: '',
             width: pageWidth,
             height: pageHeight,
-            backgroundColor: DEFAULT_BACKCOVER_COLOR
+            backgroundColor: DEFAULT_BACKGROUND_COLOR
           },
           rotation: -180
         });
@@ -122,7 +126,7 @@ export class BookComponent implements OnInit, OnDestroy {
           } : undefined,
           back: {
             imageUrl: this.model.startPageType === PageType.Single ? '' : pages.shift(),
-            backgroundColor: hasCover ? DEFAULT_BACKCOVER_COLOR : '',
+            backgroundColor: coverBackgroundColor,
             width: pageWidth,
             height: pageHeight,
           },
@@ -156,13 +160,13 @@ export class BookComponent implements OnInit, OnDestroy {
             imageUrl: '',
             width: pageWidth,
             height: pageHeight,
-            backgroundColor: DEFAULT_BACKCOVER_COLOR
+            backgroundColor: DEFAULT_BACKGROUND_COLOR
           },
           back: {
             imageUrl: '',
             width: pageWidth,
             height: pageHeight,
-            backgroundColor: DEFAULT_BACKCOVER_COLOR
+            backgroundColor: DEFAULT_BACKGROUND_COLOR
           },
           rotation: 0
         });
@@ -172,7 +176,7 @@ export class BookComponent implements OnInit, OnDestroy {
           lock: !hasCover,
           front: {
             imageUrl: this.model.endPageType === PageType.Single ? '' : pages.shift(),
-            backgroundColor: hasCover ? DEFAULT_BACKCOVER_COLOR : '',
+            backgroundColor: coverBackgroundColor,
             width: pageWidth,
             height: pageHeight,
           },

@@ -1,6 +1,7 @@
 export interface Cover {
   front: string;
   back: string;
+  backgroundColor?: string;
 }
 
 export enum PageType {
