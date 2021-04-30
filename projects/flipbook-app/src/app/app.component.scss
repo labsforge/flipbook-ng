@@ -2,6 +2,7 @@
   width: 100vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #eee;
@@ -9,4 +10,11 @@
 
 flipbook {
   filter: drop-shadow(0px 7px 6px #00000040)
+}
+
+.controls {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }

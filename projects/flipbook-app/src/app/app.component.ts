@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
       cover: {
         front: 'assets/demo/02-right.png',
         back: 'assets/demo/02-left.png',
+        backgroundColor: '#fff'
       },
       pages: [
         'assets/demo/01-left.png', // first single-page
@@ -46,8 +47,24 @@ export class AppComponent implements OnInit {
     } as Book;
   }
 
+  onPrev() {
+    this.flipService.prev.next();
+  }
+
+  onPlay() {
+    this.flipService.play.next();
+  }
+
+  onPause() {
+    this.flipService.pause.next();
+  }
+
+  onNext() {
+    this.flipService.next.next();
+  }
+
   @HostListener('window:resize')
-  public onWindowResize() {
+  onWindowResize() {
     if (!this.flipService.book) { return; }
 
     const boundsWidth = this.elr.nativeElement.getBoundingClientRect().width * .8;

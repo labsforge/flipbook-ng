@@ -53,7 +53,10 @@ export class BookComponent implements OnInit, OnDestroy {
 
     if (this.flipTimeLine && this.navigationQueue.length > 0) { return; }
 
-    this.currentIndex = index;
+    const page = this.pages.find(p => p.index === index);
+    this.currentIndex = page
+      ? page.rotation < -90 ? page.index : page.index - 1
+      : index;
 
     this.pages.sort((a, b) => {
       const diffa = Math.abs(a.index - this.currentIndex) + (a.rotation === -180 ? 1 : 0);
@@ -380,7 +383,7 @@ export class BookComponent implements OnInit, OnDestroy {
         onStart: this.setPageAtTop,
         onStartParams: [page],
         onUpdate: this.render,
-        onComplete: this.sortBook,
+        onComplete: lastNavigationIndex + direction < this.pages.length ? this.sortBook : void 0,
         onCompleteParams: [lastNavigationIndex + direction]
       }
     ));
@@ -410,13 +413,13 @@ export class BookComponent implements OnInit, OnDestroy {
         if (page.rotation === 0 && !page.lock) {
           this.flipTimeLine.add(TweenLite.to(page, 1,
             {
-              delay: index === this.currentIndex ? 0 : 2.5,
+              delay: index - (page.rotation < -90 ? 0 : 1) === this.currentIndex ? 0 : 2.5,
               rotation: -180,
               ease: Power2.easeOut,
               onStart: this.setPageAtTop,
               onStartParams: [page],
               onUpdate: this.render,
-              onComplete: this.sortBook,
+              onComplete: page.index + 1 < this.pages.length ? this.sortBook : void 0,
               onCompleteParams: [page.index + 1]
             }
           ));
