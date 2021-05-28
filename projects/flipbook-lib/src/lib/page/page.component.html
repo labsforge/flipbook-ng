@@ -5,7 +5,8 @@
   [style.z-index]="rotation > -90 ? 1 : 0"
   [style.background-image]="page.front ? 'url(' + page.front.imageUrl + ')' : null"
   [style.background-size]="page.front?.width * zoom + 'px ' + page.front?.height * zoom + 'px'"
-  [style.background-color]="page.front?.backgroundColor">
+  [style.background-color]="page.front?.backgroundColor"
+  [style.opacity.%]="page.front?.opacity * 100">
 </div>
 <div class="page back"
   [class.cover]="page.back?.isCover"
@@ -14,5 +15,6 @@
   [style.z-index]="rotation < -90 ? 1 : 0"
   [style.background-image]="page.back ? 'url(' + page.back.imageUrl + ')' : null"
   [style.background-size]="page.back?.width * zoom + 'px ' + page.back?.height * zoom + 'px'"
-  [style.background-color]="page.back?.backgroundColor">
+  [style.background-color]="page.back?.backgroundColor"
+  [style.opacity.%]="page.back?.opacity * 100">
 </div>

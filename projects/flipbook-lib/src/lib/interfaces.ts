@@ -1,7 +1,6 @@
 export interface Cover {
-  front: string;
-  back: string;
-  backgroundColor?: string;
+  front: BookPageSide;
+  back: BookPageSide;
 }
 
 export enum PageType {
@@ -9,12 +8,18 @@ export enum PageType {
   Double
 }
 
+export interface BookPageSide {
+  imageUrl: string;
+  backgroundColor?: string;
+  opacity?: number;
+}
+
 export interface Book {
   width: number;
   height: number;
   zoom: number;
   cover?: Cover;
-  pages: string[];
+  pages: BookPageSide[];
   pageWidth?: number;
   pageHeight?: number;
   startPageType?: PageType;
@@ -35,4 +40,5 @@ export interface PageSide {
   isCover?: boolean;
   width?: number;
   height?: number;
+  opacity?: number;
 }

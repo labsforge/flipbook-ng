@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnDestroy, OnInit
 } from '@angular/core';
 
-import { Book, Page, PageType } from '../interfaces';
+import { Book, BookPageSide, Page, PageType } from '../interfaces';
 import { FlipbookService } from '../flipbook.service';
 
 const DEFAULT_BACKGROUND_COLOR = '#fff';
@@ -93,10 +93,6 @@ export class BookComponent implements OnInit, OnDestroy {
     const pageWidth = this.model.pageWidth || this.model.width / 2;
     const pageHeight = this.model.pageHeight || this.model.height;
 
-    const coverBackgroundColor = hasCover && this.model.cover.backgroundColor !== undefined
-      ? this.model.cover.backgroundColor !== undefined ? this.model.cover.backgroundColor : DEFAULT_BACKGROUND_COLOR
-      : '';
-
     if (this.model && pages.length > 1) {
       if (!hasCover && this.model.startPageType === PageType.Single) {
         // add first white page block
@@ -118,37 +114,55 @@ export class BookComponent implements OnInit, OnDestroy {
           rotation: -180
         });
       } else {
-        this.pages.push({
+        const frontCover: Page = {
           index: this.pages.length,
           lock: !hasCover,
           front: hasCover ? {
-            imageUrl: this.model.cover.front,
+            imageUrl: this.model.cover.front.imageUrl,
             isCover: true,
             width: this.model.width / 2,
-            height: this.model.height
+            height: this.model.height,
+            backgroundColor: this.model.cover.front.backgroundColor,
+            opacity: this.model.cover.front.opacity,
           } : undefined,
           back: {
-            imageUrl: this.model.startPageType === PageType.Single ? '' : pages.shift(),
-            backgroundColor: coverBackgroundColor,
+            imageUrl: '',
+            backgroundColor: this.model.cover.front.backgroundColor,
+            opacity: this.model.cover.front.opacity,
             width: pageWidth,
             height: pageHeight,
           },
           rotation: hasCover ? 0 : -180
-        });
+        };
+
+        if (this.model.startPageType !== PageType.Single) {
+          const firstPage: BookPageSide = pages.shift();
+          frontCover.back.imageUrl = firstPage.imageUrl;
+          frontCover.back.backgroundColor = firstPage.backgroundColor;
+          frontCover.back.opacity = firstPage.opacity;
+        }
+
+        this.pages.push(frontCover);
       }
 
       while (pages.length > 1) {
+        const frontPage: BookPageSide = pages.shift();
+        const backPage: BookPageSide = pages.shift();
         this.pages.push({
           index: this.pages.length,
           front: {
-            imageUrl: pages.shift(),
+            imageUrl: frontPage.imageUrl,
             width: pageWidth,
             height: pageHeight,
+            backgroundColor: frontPage.backgroundColor,
+            opacity: frontPage.opacity,
           },
           back: {
-            imageUrl: pages.shift(),
+            imageUrl: backPage.imageUrl,
             width: pageWidth,
             height: pageHeight,
+            backgroundColor: backPage.backgroundColor,
+            opacity: backPage.opacity,
           },
           rotation: 0
         });
@@ -174,23 +188,35 @@ export class BookComponent implements OnInit, OnDestroy {
           rotation: 0
         });
       } else {
-        this.pages.push({
+        const backCover: Page = {
           index: this.pages.length,
           lock: !hasCover,
           front: {
-            imageUrl: this.model.endPageType === PageType.Single ? '' : pages.shift(),
-            backgroundColor: coverBackgroundColor,
+            imageUrl: '',
+            backgroundColor: this.model.cover.back.backgroundColor,
+            opacity: this.model.cover.back.opacity,
             width: pageWidth,
             height: pageHeight,
           },
           back: this.model.cover ? {
-            imageUrl: this.model.cover.back,
+            imageUrl: this.model.cover.back.imageUrl,
             isCover: true,
             width: this.model.width / 2,
-            height: this.model.height
+            height: this.model.height,
+            backgroundColor: this.model.cover.back.backgroundColor,
+            opacity: this.model.cover.back.opacity,
           } : undefined,
           rotation: 0
-        });
+        };
+
+        if (this.model.startPageType !== PageType.Single) {
+          const lastPage: BookPageSide = pages.shift();
+          backCover.front.imageUrl = lastPage.imageUrl;
+          backCover.front.backgroundColor = lastPage.backgroundColor;
+          backCover.front.opacity = lastPage.opacity;
+        }
+
+        this.pages.push(backCover);
       }
     }
 
