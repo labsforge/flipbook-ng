@@ -22,7 +22,6 @@
             "main": "projects/flipbook-app/src/main.ts",
             "polyfills": "projects/flipbook-app/src/polyfills.ts",
             "tsConfig": "projects/flipbook-app/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/flipbook-app/src/favicon.ico",
               "projects/flipbook-app/src/assets"
@@ -30,7 +29,13 @@
             "styles": [
               "projects/flipbook-app/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
