@@ -4,10 +4,12 @@
   "lib": {
     "entryFile": "src/public-api.ts",
     "umdModuleIds": {
-      "gsap": "gsap"
+      "gsap": "gsap",
+      "hammerjs": "hammerjs"
     }
   },
   "allowedNonPeerDependencies": [
-    "gsap"
+    "gsap",
+    "hammerjs"
   ]
 }

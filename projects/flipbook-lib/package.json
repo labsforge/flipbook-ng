@@ -6,14 +6,15 @@
     "angular",
     "pageflip"
   ],
-  "version": "0.0.7",
+  "version": "0.0.8",
   "peerDependencies": {
     "@angular/common": "^11.0.9",
     "@angular/core": "^11.0.9"
   },
   "dependencies": {
     "tslib": "^2.0.0",
-    "gsap": "^2.0.1"
+    "gsap": "^2.0.1",
+    "hammerjs": "^2.0.8"
   },
   "author": {
     "name": "Labsforge Software Consulting, lda",
