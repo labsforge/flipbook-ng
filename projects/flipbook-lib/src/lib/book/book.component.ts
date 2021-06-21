@@ -127,8 +127,8 @@ export class BookComponent implements OnInit, OnDestroy {
           } : undefined,
           back: {
             imageUrl: '',
-            backgroundColor: this.model.cover.front.backgroundColor,
-            opacity: this.model.cover.front.opacity,
+            backgroundColor: hasCover ? this.model.cover.front.backgroundColor : DEFAULT_BACKGROUND_COLOR,
+            opacity: hasCover ? this.model.cover.front.opacity : 1,
             width: pageWidth,
             height: pageHeight,
           },
@@ -193,8 +193,8 @@ export class BookComponent implements OnInit, OnDestroy {
           lock: !hasCover,
           front: {
             imageUrl: '',
-            backgroundColor: this.model.cover.back.backgroundColor,
-            opacity: this.model.cover.back.opacity,
+            backgroundColor: hasCover ? this.model.cover.back.backgroundColor : DEFAULT_BACKGROUND_COLOR,
+            opacity: hasCover ? this.model.cover.back.opacity : 1,
             width: pageWidth,
             height: pageHeight,
           },
@@ -209,7 +209,7 @@ export class BookComponent implements OnInit, OnDestroy {
           rotation: 0
         };
 
-        if (this.model.startPageType !== PageType.Single) {
+        if (this.model.startPageType !== PageType.Single && pages.length) {
           const lastPage: BookPageSide = pages.shift();
           backCover.front.imageUrl = lastPage.imageUrl;
           backCover.front.backgroundColor = lastPage.backgroundColor;
@@ -220,10 +220,10 @@ export class BookComponent implements OnInit, OnDestroy {
       }
     }
 
-    if (this.startAt !== undefined) {
+    if (this.startAt !== undefined && this.startAt !== this.currentIndex) {
       this.goTo(this.startAt);
     } else {
-      this.sortBook(0);
+      this.sortBook(this.currentIndex - 1);
     }
   }
 

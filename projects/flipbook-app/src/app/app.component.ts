@@ -12,6 +12,9 @@ export class AppComponent implements OnInit {
     return this.flipService.book;
   }
 
+  startAt = 0;
+  currentPage = 1;
+
   constructor(
     private elr: ElementRef,
     private flipService: FlipbookService,
