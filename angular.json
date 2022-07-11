@@ -84,19 +84,6 @@
             "browserTarget": "flipbook-app:build"
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/flipbook-app/tsconfig.app.json",
-              "projects/flipbook-app/tsconfig.spec.json",
-              "projects/flipbook-app/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -132,18 +119,6 @@
             "production": {
               "tsConfig": "projects/flipbook-lib/tsconfig.lib.prod.json"
             }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/flipbook/tsconfig.lib.json",
-              "projects/flipbook/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
