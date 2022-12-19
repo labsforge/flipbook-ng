@@ -416,7 +416,7 @@ export class BookComponent implements OnInit, OnDestroy {
   }
 
   goTo(index: number) {
-    if (this.currentIndex === index) { return; }
+    if (this.currentIndex === index - 1) { return; }
 
     for (let i = 0; i < this.pages.length; i++) {
       const page = this.pages.find(p => p.index === i);
