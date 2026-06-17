@@ -209,7 +209,7 @@ export class BookComponent implements OnInit, OnDestroy {
           rotation: 0
         };
 
-        if (this.model.startPageType !== PageType.Single && pages.length) {
+        if (this.model.endPageType !== PageType.Single && pages.length) {
           const lastPage: BookPageSide = pages.shift();
           backCover.front.imageUrl = lastPage.imageUrl;
           backCover.front.backgroundColor = lastPage.backgroundColor;
