@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "publish": "ng build flipbook-lib --configuration production && cd dist/flipbook-lib && npm publish --access public"
+    "publish": "ng build flipbook-lib --configuration production && cd dist/flipbook-lib && npm publish"
   },
   "private": true,
   "dependencies": {
