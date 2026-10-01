@@ -4,8 +4,9 @@
                [height]="model.height"
                [zoom]="model.zoom"
                [rotation]="page.rotation"
+               flipbookGestures
                (mousedown)="onPageDown($event, page)"
-               (pan)="onPagePan($event, page)"
-               (panend)="onPagePanEnd($event, page)"
-               (swipe)="onSwipe($event, page)">
+               (gesturePan)="onPagePan($event, page)"
+               (gesturePanEnd)="onPagePanEnd($event, page)"
+               (gestureSwipe)="onSwipe($event, page)">
 </flipbook-page>

@@ -4,18 +4,16 @@ import { BookComponent } from './book/book.component';
 import { PageComponent } from './page/page.component';
 import { FlipbookService } from './flipbook.service';
 import { ReversePipe } from './pipes/reverse.pipe';
-import { HammerModule } from '@angular/platform-browser';
-
-import 'hammerjs';
+import { GesturesDirective } from './directives/gestures.directive';
 
 @NgModule({
   imports: [
     CommonModule,
-    HammerModule,
   ],
   declarations: [
     BookComponent,
     PageComponent,
+    GesturesDirective,
     ReversePipe,
   ],
   exports: [
